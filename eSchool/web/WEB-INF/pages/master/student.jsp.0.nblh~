@@ -1,0 +1,52 @@
+<%-- 
+    Document   : student
+    Created on : Jun 22, 2011, 4:44:41 PM
+    Author     : vikram.galande
+--%>
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Student Registration</title>
+    </head>
+    <body>
+
+        <form:form method="POST" commandName="student">
+            <fieldset>
+                <legend>Student Registration</legend>            
+            <table>
+                <tr>
+                    <td>User Name :</td>
+                    <td><form:input path="fame" /></td>
+                    <td><form:input path="mname" /></td>
+                    <td><form:input path="lame" /></td>
+                </tr>                
+                <tr>
+                    <td>Gender :</td>
+                    <td colspan="3">
+                        <form:radiobutton path="gender" value="M" label="M" /> 
+                        <form:radiobutton path="gender" value="F" label="F" />
+                    </td>
+                </tr>                
+                <tr>
+                    <td>Date of birth :</td>
+                    <td><form:input path="fame" /></td>
+                    <td><form:input path="mname" /></td>
+                    <td><form:input path="lame" /></td>
+                </tr>                
+                <tr>
+                    <td colspan="4">
+                        <input type="submit" value="Register">
+                    </td>
+                </tr>
+            </table>
+                </fieldset>
+        </form:form>
+
+    </body>
+</html>

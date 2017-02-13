@@ -1,0 +1,80 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.itcube.controller.master;
+
+import com.itcube.pojo.master.Student;
+import com.itcube.service.master.StudentInterface;
+import java.sql.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+/**
+ *
+ * @author vikram.galande
+ */
+@Controller
+@RequestMapping("/student.htm")
+@SessionAttributes("student")
+public class StudentController {
+
+    private StudentInterface studentInterface;
+
+    @Autowired
+    public void setStudentInterface(StudentInterface studentInterface) {
+        this.studentInterface = studentInterface;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String showUserForm(ModelMap model) {
+        com.itcube.pojo.master.Student student = new Student();
+        student.setGender("M");
+        model.addAttribute("countryList", studentInterface.getAllCountries());
+        model.addAttribute("student", student);
+        return "master/student";
+    }
+
+//    @RequestMapping(value = "/time", method = RequestMethod.GET)
+//    public @ResponseBody
+//    String getTime(@RequestParam String name) {
+//        String result = "Time for " + name + " is " + new Date().toString();
+//        return result;
+//    }
+    @RequestMapping(method = RequestMethod.POST)
+    public String onSubmit(@ModelAttribute("student") Student student) {
+        com.itcube.hibernate.db.Student studentEntity = new com.itcube.hibernate.db.Student();
+        String[] dob = null;
+        int yy = 1978;
+        int mm = 0;
+        int dd = 1;
+        if (null != student.getDateOfBirth() && !"".equals(student.getDateOfBirth())) {
+            dob = student.getDateOfBirth().split("-");
+            dd = Integer.parseInt(dob[0]);
+            mm = Integer.parseInt(dob[1]);
+            yy = Integer.parseInt(dob[2]);
+        }
+
+        String photoPath = student.getPhoto();
+        File fileToCreate = new File(filePath, this.userImageFileName);
+
+        FileUtils.copyFile(this.userImage, fileToCreate);
+        studentEntity.setStudID(studentInterface.getMaxStudentCode() + 1);
+        studentEntity.setStudName(student.getFname() + " " + student.getMname() + " " + student.getLname());
+        studentEntity.setStudAddress1(student.getPermanentAddress());
+        studentEntity.setStudAddress2(student.getPresentAddress());
+        studentEntity.setStudContact(student.getMobile());
+        studentEntity.setStudDOB(new Date(yy - 1900, mm - 1, dd));
+        studentEntity.setStudEmail(student.getEmail());
+        studentEntity.setStudGender(student.getGender().charAt(0));
+        studentEntity.setStudPhotoPath("");
+        studentEntity.setStudSignPath("");
+        studentInterface.add(studentEntity);
+        return "master/studentSuccess";
+    }
+}

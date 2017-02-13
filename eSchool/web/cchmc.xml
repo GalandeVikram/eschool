@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : cchmc.xml
+    Created on : December 1, 2011, 4:28 PM
+    Author     : vikram.galande
+    Description:
+        Purpose of the document follows.
+-->
+
+<root>
+    <tab id="bipolar_endoftreatment" 
+         label="Bipolar End of Treatment" 
+         autolock="1" 
+         color="#DCE670">
+        <concern id="con_md_bp_ksads_bec7" 
+                 label="K-SADS MANIA RATING SCALE" 
+                 array="0" 
+                 handle="PITT MRS - Clinician">            
+            <item_lev0 id="message_severity_ksads_bec7" 
+                       label="K-SADS MANIA RATING SCALE [PITT MRS]" 
+                       required="0">
+                <item_lev1 id="ksads_q1_bec7" 
+                           label="1. ELATION, EXPANSIVE MOOD [PAST] - Elevated mood and/or optimistic attitude toward the future which lasted at least 4 hours and was out of proportion to the circumstances. Differentiate from normal mood in chronically depressed subjects. Do not rate positive if mild elation is reported in situations like Christmas gifts, birthdays, amusement parks, which normally overstimulate and make children very excited. Have [there been times when] you felt very good or too cheerful or high or terrific or great, or just not your normal self? If unclear: When you felt on top of the world or as if there was nothing you couldnt do? ...That this is the best of all possible worlds? Have you felt that everything would work out just the way you wanted? If people saw you, would they think you were just in a good mood or something more than that? Did you get as if you were drunk? Did you laugh a lot, get silly? Did you feel super happy? When did this happen?" 
+                           required="1"
+                           type="select"
+                           validator="v_generic_multiselect">
+                    <item_lev2 id="ksads_q1_0_bec7" label="No Information" implies="ksads_q1_0" presentation="No Information"/>                
+                    <item_lev2 id="ksads_q1_1_bec7" label="No Information" implies="ksads_q1_0" presentation="No Information"/>                
+                    <item_lev2 id="ksads_q1_2_bec7" label="No Information" implies="ksads_q1_0" presentation="No Information"/>                
+                    <item_lev2 id="ksads_q1_3_bec7" label="No Information" implies="ksads_q1_0" presentation="No Information"/>                
+                    <item_lev2 id="ksads_q1_4_bec7" label="No Information" implies="ksads_q1_0" presentation="No Information"/>                
+                    <item_lev2 id="ksads_q1_5_bec7" label="No Information" implies="ksads_q1_0" presentation="No Information"/>                
+                    <item_lev2 id="ksads_q1_6_bec7" label="No Information" implies="ksads_q1_0" presentation="No Information"/>                
+                </item_lev1>
+            </item_lev0>
+        </concern>
+    </tab>
+</root>

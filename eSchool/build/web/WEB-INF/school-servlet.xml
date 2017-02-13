@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd"-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd
+       http://java.sun.com/xml/ns/persistence
+       http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+    
+    <bean id="viewResolver"
+      	class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:prefix="/WEB-INF/pages/" 
+        p:suffix=".jsp">
+    </bean>
+    
+    <context:component-scan base-package="com.itcube"/>    
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" p:interceptors-ref="loggerInterceptor"/>     
+    <bean id="loggerInterceptor" class="com.itcube.interceptor.LoggerInterceptor"/>        
+    
+    
+    <bean id="loginInterface" class="com.itcube.service.LoginService">                
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean> 
+    
+    <bean id="userInterface" class="com.itcube.service.master.UserService">                
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>            
+    <bean id="studentInterface" class="com.itcube.service.master.StudentService">    
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+    
+    
+    <bean id="admissionInterface" class="com.itcube.service.master.AdmissionService">    
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+    
+    <bean id="teacherInterface" class="com.itcube.service.master.TeacherService"/>    
+    <bean id="studentAttendanceInterface" class="com.itcube.service.attendance.StudentAttendanceService"/>        
+    <bean id="utilInterface" class="com.itcube.service.UtilService.UtilService">        
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+    <bean id="examInterface" class="com.itcube.bo.exam.deligates.ExamDelegates">        
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+    <bean id="examFormInterface" class="com.itcube.service.master.ExamFormService"/>            
+    
+    <bean id="resultInterface" class="com.itcube.bo.result.deligates.ResultDeligates">                
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+    
+    <bean id="userAuthInterface" class="com.itcube.hibernate.service.UserAuthService"/>                
+    <bean id="standardInterface" class="com.itcube.service.master.StandardService">                    
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+    <bean id="academicYearInterface" class="com.itcube.service.master.AcademicYearService">                    
+        <property name="sessionFactory" ref="mySessionFactory"/>
+    </bean>
+    
+    
+     <!-- Configure the multipart resolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">      
+    </bean>
+</beans>

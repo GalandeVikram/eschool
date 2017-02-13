@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"       
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"       
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:pu="http://java.sun.com/xml/ns/persistence"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://java.sun.com/xml/ns/persistence
+       http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+    
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/hibernate.properties"/>
+    
+    <!--bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="${jdbc.driverClassName}"
+          p:url="${jdbc.url}"
+          p:username="${jdbc.username}"
+          p:password="${jdbc.password}" /-->
+    
+    <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->   
+    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"    
+    p:username="root"
+    p:password="root"
+    p:driverClassName="com.mysql.jdbc.Driver"
+    p:url="jdbc:mysql://localhost:3306/school"/>
+    
+    <!--bean id="myHibernateProperties" class="org.hibernate.ejb.HibernatePersistence"    
+    pu:username="root"
+    pu:password="root"
+    pu:hibernate.connection.driver_class="com.mysql.jdbc.Driver"
+    pu:url="jdbc:mysql://localhost:3306/school"    
+    pu:hibernate.cache.provider_class="org.hibernate.cache.NoCacheProvider"
+    pu:hibernate.dialect="org.hibernate.dialect.MySQLDialect"
+    pu:show_sql="true"
+    pu:hibernate.hbm2ddl.auto="update"/-->
+    
+    <bean id="mySessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">        
+        <property name="dataSource" ref="myDataSource"/>           
+        <property name="annotatedClasses">
+            <list>
+                <value>com.itcube.hibernate.db.User</value>
+                <value>com.itcube.hibernate.db.AcademicYear</value>
+                <value>com.itcube.hibernate.db.Country</value>
+                <value>com.itcube.hibernate.db.State</value>
+                <value>com.itcube.hibernate.db.Room</value>
+                <value>com.itcube.hibernate.db.District</value>
+                <value>com.itcube.hibernate.db.Taluka</value>
+                <value>com.itcube.hibernate.db.Student</value>
+                <value>com.itcube.hibernate.db.Teacher</value>
+                <value>com.itcube.hibernate.db.Subject</value>                
+                <value>com.itcube.hibernate.db.SubjectDetail</value>                                
+                <value>com.itcube.hibernate.db.Division</value>                                                
+                <value>com.itcube.hibernate.db.Standard</value>
+                <value>com.itcube.hibernate.db.ClassRoom</value>                
+                <value>com.itcube.hibernate.db.Admission</value>                
+                <value>com.itcube.hibernate.db.Exam</value>                
+                <value>com.itcube.hibernate.db.ExamDetail</value>                
+                <value>com.itcube.hibernate.db.ExamTransaction</value>                                
+                <value>com.itcube.hibernate.db.ExamResult</value>  
+                <value>com.itcube.hibernate.db.ExamForm</value>                  
+                <!--
+                <value>com.itcube.hibernate.model.UserAuth</value>                
+                <value>com.itcube.hibernate.model.Country</value>                
+                <value>com.itcube.hibernate.model.State</value>                                
+                <value>com.itcube.hibernate.model.District</value>                                
+                <value>com.itcube.hibernate.model.Taluka</value>                                
+                <value>com.itcube.hibernate.model.Student</value>                                
+                <value>com.itcube.hibernate.model.AccYear</value>                                                
+                <value>com.itcube.hibernate.model.Standard</value>                                                                
+                <value>com.itcube.hibernate.model.StandardDetail</value>                                                                
+                <value>com.itcube.hibernate.model.Division</value>                                                                
+                <value>com.itcube.hibernate.model.Enrollment</value>                
+                <value>com.itcube.hibernate.model.Temp</value>
+                -->
+            </list>
+        </property>        
+        <property name="hibernateProperties">            
+            <props>
+                <prop key="hibernate.connection.pool_size">10</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>                 
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>                 
+            </props>
+        </property>
+    </bean>    
+</beans>
